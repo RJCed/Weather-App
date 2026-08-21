@@ -19,12 +19,21 @@ body{
     gap: 20px;
 }
 
+#location{
+    font-size: clamp(24px, 5vw, 40px);
+    text-align: center;
+}
 
-
+#weather-status{
+    font-size: clamp(18px, 3.5vw, 25px);
+    text-align: center;
+}
 
 #temperature{
     font-size: 100px;
 }
+
+
 
 #detail-box{
     display: flex;
@@ -38,6 +47,8 @@ body{
     padding-bottom: 10px;
 
     background-color: #3c0066;
+
+    text-align: center;
 }
 
 .details{
@@ -49,10 +60,11 @@ body{
     padding: 15px;
 
     font-size: clamp(0.8rem, 1vw, 2rem);
-    gap: 10px;
+    gap: 15px;
 }
 .details h3{
     font-weight: 300;
+    text-align: center;
 }
 
 
