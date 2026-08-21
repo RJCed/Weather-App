@@ -5,29 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./style.css">
     <title>Weather</title>
+    <link rel="icon" type="image/x-icon" href="./images/favicon.ico">
 </head>
 <body>
     <h1 id="location">Davao, Philippines</h1>
     <h2 id="weather-status">Clear Sky</h2>
-    <img src="" alt="weather image" id="weather-image">
+    <img src="./images/weather.png" alt="weather image" id="weather-image" width="180" height="180">
     <p id="date-time">Friday, August 21 | 9:00 PM</p>
     <h1 id="temperature">27°C</h1>
 
     <div id="detail-box">
-        <div id="rain-box">
-            <img src="" alt="rain-img">
+        <div class="details">
+            <img src="./images/weather.png" alt="rain-img" width="64" height="64">
             <h1 id="chance-rain">100%</h1>
             <h2>Rain</h2>
         </div>
 
-        <div id="wind-speed-box">
-            <img src="" alt="wind-img">
+        <div class="details">
+            <img src="./images/weather.png" alt="wind-img" width="64" height="64">
             <h1 id="wind-speed">5.5 km/h</h1>
             <h2>Wind Speed</h2>
         </div>
 
-        <div id="humidity-box">
-            <img src="" alt="humidity-img">
+        <div class="details">
+            <img src="./images/weather.png" alt="humidity-img" width="64" height="64">
             <h1 id="humidity-percent">77%</h1>
             <h2>Humidity</h2>
         </div>
@@ -37,6 +38,8 @@
         <input type="text" id="type-location" value="Davao">
         <button id="search-button">Search</button>
     </div>
+
+
     <script src="./script.js"></script>
 </body>
 </html>
