@@ -7,8 +7,35 @@
     <title>Weather</title>
 </head>
 <body>
-    <div>
-        
+    <h1 id="location">Davao, Philippines</h1>
+    <h2 id="weather-status">Clear Sky</h2>
+    <img src="" alt="weather image" id="weather-image">
+    <p id="date-time">Friday, August 21 | 9:00 PM</p>
+    <h1 id="temperature">27°C</h1>
+
+    <div id="detail-box">
+        <div id="rain-box">
+            <img src="" alt="rain-img">
+            <h1 id="chance-rain">100%</h1>
+            <h2>Rain</h2>
+        </div>
+
+        <div id="wind-speed-box">
+            <img src="" alt="wind-img">
+            <h1 id="wind-speed">5.5 km/h</h1>
+            <h2>Wind Speed</h2>
+        </div>
+
+        <div id="humidity-box">
+            <img src="" alt="humidity-img">
+            <h1 id="humidity-percent">77%</h1>
+            <h2>Humidity</h2>
+        </div>
+    </div>
+
+    <div id="search-box">
+        <input type="text" id="type-location" value="Davao">
+        <button id="search-button">Search</button>
     </div>
     <script src="./script.js"></script>
 </body>
