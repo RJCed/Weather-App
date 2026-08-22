@@ -1,12 +1,11 @@
 # Weather-App
 
-Weather App using Open Meteo API
+Weather App using Open Meteo API (still under development)
 
 **Website:** https://rjced.github.io/Weather-App/ 
 
-(still under development)
 
-**Credits**
+**Credits:**
 
 [Open Meteo API](https://open-meteo.com/)
 
