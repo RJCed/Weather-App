@@ -29,6 +29,12 @@ body{
     text-align: center;
 }
 
+#temperature-box{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
 #temperature{
     font-size: 100px;
 }
