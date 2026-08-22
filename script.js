@@ -47,4 +47,11 @@ async function getInfo(){
     const longitude = geoData.results[0].longitude;
 
     console.log(geoData)
+
+    const weatherURL = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&daily=precipitation_probability_max,weather_code,temperature_2m_max,temperature_2m_min&current=temperature_2m,wind_speed_10m,relative_humidity_2m&timezone=auto`
+    const weatherResponse = await fetch(weatherURL);
+    const weatherData = await weatherResponse.json();
+
+    console.log(weatherData)
+
 }
