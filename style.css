@@ -73,7 +73,7 @@ body{
 #search-box{
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 8px;
     padding: 10px;
 
 }
@@ -104,9 +104,12 @@ body{
     font-size: 20px;
     font-weight: 600;
     overflow: hidden;
+
+    color: #d1d1d1;
 }
 
 #search-button{
+    color: #d1d1d1;
     background-color: #3c0066;
     border: none;
 
@@ -115,4 +118,7 @@ body{
     font-size: 20px;
     font-weight: 600;
     padding: 10px;
+}
+#search-button:hover{
+    color: white;
 }
