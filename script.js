@@ -41,17 +41,48 @@ async function getInfo(){
     const geoURL = `https://geocoding-api.open-meteo.com/v1/search?name=${city}`
     const geoResponse = await fetch(geoURL);
     const geoData = await geoResponse.json();
+    console.log("Finished Geo Data")
 
-    // Take latitude and longitude of the location
+    // Get variables from data
     const latitude = geoData.results[0].latitude;
     const longitude = geoData.results[0].longitude;
-
+    const cityName = geoData.results[0].name;
+    const country = geoData.results[0].country;
     console.log(geoData)
 
-    const weatherURL = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&daily=precipitation_probability_max,weather_code,temperature_2m_max,temperature_2m_min&current=temperature_2m,wind_speed_10m,relative_humidity_2m&timezone=auto`
+    
+
+    // Request Weather Data from open-meteo
+    const weatherURL = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&daily=precipitation_probability_max,weather_code,temperature_2m_max,temperature_2m_min&current=temperature_2m,relative_humidity_2m,wind_speed_10m&timezone=auto`
     const weatherResponse = await fetch(weatherURL);
     const weatherData = await weatherResponse.json();
+    console.log("Finished Weather Data")
 
+    // Get variables from data
+    const weatherCode = weatherData.daily.weather_code[0];
+    const temperature = weatherData.current.temperature_2m;
+    const rainPercent = weatherData.daily.precipitation_probability_max[0];
+    const windSpeed = weatherData.current.wind_speed_10m;
+    const humidity = weatherData.current.relative_humidity_2m;
+    const highestTemp = weatherData.daily.temperature_2m_max[0];
+    const lowestTemp = weatherData.daily.temperature_2m_min[0];
+
+    // Get weather name and image
+    const weatherName = weatherCodeMap[weatherCode][0];
+    const weatherImage = weatherCodeMap[weatherCode][1];
+
+    // Get time and date to the used format of the page
+    const dateTimeData = weatherData.current.time;
+    const date = new Date(dateTimeData);
+    const dateFormat = `${date.toLocaleString("en-US", {
+        weekday: "long",
+        month: "long",
+        day: "numeric"
+    })} | ${date.toLocaleString("en-US", {
+        hour: "numeric",
+        minute: "2-digit",
+        hour12: true
+    })}`;
     console.log(weatherData)
 
 }
