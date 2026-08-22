@@ -33,6 +33,17 @@ const cityInput = document.getElementById("type-location");
 const searchBtn = document.getElementById("search-button");
 searchBtn.addEventListener("click", getInfo);
 
+const locationText = document.getElementById("location");
+const weatherStatus = document.getElementById("weather-status");
+const weatherImg = document.getElementById("weather-image");
+const dateTime = document.getElementById("date-time");
+const temperatureText = document.getElementById("temperature");
+const highTemp = document.getElementById("high-temp");
+const lowTemp = document.getElementById("low-temp");
+const chanceRain = document.getElementById("chance-rain");
+const wind = document.getElementById("wind-speed");
+const humidityText = document.getElementById("humidity-percent");
+
 
 async function getInfo(){
     const city = cityInput.value.trim();
@@ -84,5 +95,23 @@ async function getInfo(){
         hour12: true
     })}`;
     console.log(weatherData)
+
+
+
+
+    // Change DOM
+    locationText.textContent = `${cityName}, ${country}`;
+    weatherStatus.textContent = weatherName;
+    weatherImg.src = `./images/${weatherImage}`;
+    dateTime.textContent = dateFormat;
+    temperatureText.textContent = `${Math.round(temperature)}°C`;
+    highTemp.textContent = `H: ${highestTemp}`;
+    lowTemp.textContent = `L: ${lowestTemp}`;
+    chanceRain.textContent = `${rainPercent}%`;
+    wind.textContent = `${windSpeed} km/h`;
+    humidityText = `${humidity}%`;
+
+
+
 
 }
