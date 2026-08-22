@@ -109,7 +109,7 @@ async function getInfo(){
     lowTemp.textContent = `L: ${lowestTemp}`;
     chanceRain.textContent = `${rainPercent}%`;
     wind.textContent = `${windSpeed} km/h`;
-    humidityText = `${humidity}%`;
+    humidityText.textContent = `${humidity}%`;
 
 
 
