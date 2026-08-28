@@ -29,9 +29,11 @@ const weatherCodeMap = {
     99: ["Thunderstorm With Heavy Hail", "thunderstorm.png"]
 };
 
+// Button Container
 const cityInput = document.getElementById("type-location");
 const searchBtn = document.getElementById("search-button");
 searchBtn.addEventListener("click", getInfo);
+
 
 const locationText = document.getElementById("location");
 const weatherStatus = document.getElementById("weather-status");
@@ -43,49 +45,91 @@ const lowTemp = document.getElementById("low-temp");
 const chanceRain = document.getElementById("chance-rain");
 const wind = document.getElementById("wind-speed");
 const humidityText = document.getElementById("humidity-percent");
+const locPopup = document.getElementById("location-popup");
+const listContainer = document.getElementById("list-container");
 
 
+
+// Data variables
+let city = cityInput.value.trim();
+
+let geoURL;
+let geoResponse;
+let geoData;
+
+let latitude;
+let longitude;
+let cityName;
+let country;
+
+let weatherURL;
+let weatherResponse;
+let weatherData;
+
+let weatherCode;
+let temperature;
+let rainPercent;
+let windSpeed;
+let humidity;
+let highestTemp;
+let lowestTemp;
+
+let weatherName;
+let weatherImage;
+
+let dateTimeData;
+let date;
+let dateFormat;
+
+
+
+// Show Popup for location picker
+locPopup.showModal();
+
+
+// Get Geo and Weather Data
 async function getInfo(){
-    const city = cityInput.value.trim();
+    locPopup.close();
+    city = cityInput.value.trim();
 
     // Request Location geo data from open-meteo
-    const geoURL = `https://geocoding-api.open-meteo.com/v1/search?name=${city}`
-    const geoResponse = await fetch(geoURL);
-    const geoData = await geoResponse.json();
+    geoURL = `https://geocoding-api.open-meteo.com/v1/search?name=${city}`
+    geoResponse = await fetch(geoURL);
+    geoData = await geoResponse.json();
     console.log("Finished Geo Data")
 
     // Get variables from data
-    const latitude = geoData.results[0].latitude;
-    const longitude = geoData.results[0].longitude;
-    const cityName = geoData.results[0].name;
-    const country = geoData.results[0].country;
+    latitude = geoData.results[0].latitude;
+    longitude = geoData.results[0].longitude;
+    cityName = geoData.results[0].name;
+    country = geoData.results[0].country;
     console.log(geoData)
 
     
 
     // Request Weather Data from open-meteo
-    const weatherURL = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&daily=precipitation_probability_max,weather_code,temperature_2m_max,temperature_2m_min&current=temperature_2m,relative_humidity_2m,wind_speed_10m&timezone=auto`
-    const weatherResponse = await fetch(weatherURL);
-    const weatherData = await weatherResponse.json();
+    weatherURL = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&daily=precipitation_probability_max,weather_code,temperature_2m_max,temperature_2m_min&current=temperature_2m,relative_humidity_2m,wind_speed_10m&timezone=auto`
+    weatherResponse = await fetch(weatherURL);
+    weatherData = await weatherResponse.json();
     console.log("Finished Weather Data")
 
     // Get variables from data
-    const weatherCode = weatherData.daily.weather_code[0];
-    const temperature = weatherData.current.temperature_2m;
-    const rainPercent = weatherData.daily.precipitation_probability_max[0];
-    const windSpeed = weatherData.current.wind_speed_10m;
-    const humidity = weatherData.current.relative_humidity_2m;
-    const highestTemp = weatherData.daily.temperature_2m_max[0];
-    const lowestTemp = weatherData.daily.temperature_2m_min[0];
+    weatherCode = weatherData.daily.weather_code[0];
+    temperature = weatherData.current.temperature_2m;
+    rainPercent = weatherData.daily.precipitation_probability_max[0];
+    windSpeed = weatherData.current.wind_speed_10m;
+    humidity = weatherData.current.relative_humidity_2m;
+    highestTemp = weatherData.daily.temperature_2m_max[0];
+    lowestTemp = weatherData.daily.temperature_2m_min[0];
 
     // Get weather name and image
-    const weatherName = weatherCodeMap[weatherCode][0];
-    const weatherImage = weatherCodeMap[weatherCode][1];
+    weatherName = weatherCodeMap[weatherCode][0];
+    weatherImage = weatherCodeMap[weatherCode][1];
 
     // Get time and date to the used format of the page
-    const dateTimeData = weatherData.current.time;
-    const date = new Date(dateTimeData);
-    const dateFormat = `${date.toLocaleString("en-US", {
+    dateTimeData = weatherData.current.time;
+    date = new Date(dateTimeData);
+    dateFormat = `${date.toLocaleString("en-US", {
         weekday: "long",
         month: "long",
         day: "numeric"
@@ -110,8 +154,31 @@ async function getInfo(){
     chanceRain.textContent = `${rainPercent}%`;
     wind.textContent = `${windSpeed} km/h`;
     humidityText.textContent = `${humidity}%`;
+}
 
 
 
+// Append list of places with tha same name
+function showPlace(){
+    const placeResults = geoData.results;
 
+
+    // Create place list (li)
+    const placeList = document.createElement("li");
+    
+    // Add style of list
+    placeList.classList.add("placeList");
+
+    // Create place button
+    const placeBtn = document.createElement("button");
+    placeBtn.textContent = "City, Region, Country";
+
+    // Add style in button
+    placeBtn.classList.add("placeBtn");
+
+    // Adds place button in the list
+    placeList.appendChild(placeBtn);
+
+    // Add list in list container
+    listContainer.appendChild(placeList);
 }
