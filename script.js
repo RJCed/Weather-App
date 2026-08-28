@@ -144,6 +144,11 @@ async function getInfo(){
 
 
     // Change DOM
+    updateDOM();
+}
+
+
+function updateDOM(){
     locationText.textContent = `${cityName}, ${country}`;
     weatherStatus.textContent = weatherName;
     weatherImg.src = `./images/${weatherImage}`;
