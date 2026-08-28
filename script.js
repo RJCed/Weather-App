@@ -88,8 +88,7 @@ locPopup.showModal();
 
 
 // Get Geo and Weather Data
-async function getInfo(){
-    
+async function fetchGeoData(){
     city = cityInput.value.trim();
 
     // Request Location geo data from open-meteo
@@ -98,6 +97,13 @@ async function getInfo(){
     geoData = await geoResponse.json();
     console.log("Finished Geo Data")
 
+}
+
+
+
+// Change data variables
+async function getInfo(){
+
     // Get variables from data
     latitude = geoData.results[0].latitude;
     longitude = geoData.results[0].longitude;
@@ -105,13 +111,13 @@ async function getInfo(){
     country = geoData.results[0].country;
     console.log(geoData)
 
-    
 
     // Request Weather Data from open-meteo
     weatherURL = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&daily=precipitation_probability_max,weather_code,temperature_2m_max,temperature_2m_min&current=temperature_2m,relative_humidity_2m,wind_speed_10m&timezone=auto`
     weatherResponse = await fetch(weatherURL);
     weatherData = await weatherResponse.json();
     console.log("Finished Weather Data")
+
 
     // Get variables from data
     weatherCode = weatherData.daily.weather_code[0];
@@ -197,6 +203,10 @@ function showPlace(){
 
 
 async function funcOrder(){
-    await getInfo();
+    await fetchGeoData();
     showPlace();
+
+    // TODO only run this if the user click one of the results and then change DOM
+    getInfo();
+    
 }
