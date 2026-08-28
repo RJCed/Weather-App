@@ -32,7 +32,7 @@ const weatherCodeMap = {
 // Button Container
 const cityInput = document.getElementById("type-location");
 const searchBtn = document.getElementById("search-button");
-searchBtn.addEventListener("click", getInfo);
+searchBtn.addEventListener("click", funcOrder);
 
 
 const locationText = document.getElementById("location");
@@ -89,7 +89,7 @@ locPopup.showModal();
 
 // Get Geo and Weather Data
 async function getInfo(){
-    locPopup.close();
+    
     city = cityInput.value.trim();
 
     // Request Location geo data from open-meteo
@@ -140,15 +140,19 @@ async function getInfo(){
     })}`;
     console.log(weatherData)
 
-
+    
 
 
     // Change DOM
-    updateDOM();
+    // updateDOM();
 }
 
 
 function updateDOM(){
+    // Close the popup
+    locPopup.close();
+
+    // Update DOM
     locationText.textContent = `${cityName}, ${country}`;
     weatherStatus.textContent = weatherName;
     weatherImg.src = `./images/${weatherImage}`;
@@ -167,23 +171,32 @@ function updateDOM(){
 function showPlace(){
     const placeResults = geoData.results;
 
+    // Add each place to list
+    for(i = 0; i < placeResults.length; i++){
+        // Create place list (li)
+        const placeList = document.createElement("li");
+        
+        // Add style of list
+        placeList.classList.add("placeList");
 
-    // Create place list (li)
-    const placeList = document.createElement("li");
+        // Create place button
+        const placeBtn = document.createElement("button");
+        placeBtn.textContent = "City, Region, Country";
+
+        // Add style in button
+        placeBtn.classList.add("placeBtn");
+
+        // Adds place button in the list
+        placeList.appendChild(placeBtn);
+
+        // Add list in list container
+        listContainer.appendChild(placeList);
+    }
     
-    // Add style of list
-    placeList.classList.add("placeList");
+}
 
-    // Create place button
-    const placeBtn = document.createElement("button");
-    placeBtn.textContent = "City, Region, Country";
 
-    // Add style in button
-    placeBtn.classList.add("placeBtn");
-
-    // Adds place button in the list
-    placeList.appendChild(placeBtn);
-
-    // Add list in list container
-    listContainer.appendChild(placeList);
+async function funcOrder(){
+    await getInfo();
+    showPlace();
 }
