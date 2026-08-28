@@ -136,7 +136,7 @@ body{
     margin: auto;
     padding: 10px;
 
-    width: 30vw;
+    width: clamp(280px, 40vw, 600px);
     /*  height: 60vh; */
 
     background-image: linear-gradient(to bottom, #632299, #682a6b);
@@ -164,9 +164,12 @@ body{
     border-radius: 10px;
     border-style: none;
 
-    font-size: larger;
+    font-size: clamp(1rem, 12.5% + 0.5rem, 1.5rem);
     font-weight: 800;
-    text-wrap: nowrap;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    overflow: ellipsis;
 
     background-color: #3c0066;
 

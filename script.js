@@ -60,6 +60,7 @@ let geoData;
 let latitude;
 let longitude;
 let cityName;
+let region;
 let country;
 
 let weatherURL;
@@ -187,7 +188,8 @@ function showPlace(){
 
         // Create place button
         const placeBtn = document.createElement("button");
-        placeBtn.textContent = "City, Region, Country";
+
+        placeBtn.textContent = `${geoData.results[i].name}, ${geoData.results[i].admin2}, ${geoData.results[0].country}`;
 
         // Add style in button
         placeBtn.classList.add("placeBtn");
