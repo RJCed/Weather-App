@@ -158,7 +158,13 @@ async function getInfo(index){
 function updateDOM(){
 
     // Update DOM
-    locationText.textContent = `${cityName}, ${country}`;
+    if (cityName == country)
+    {
+        locationText.textContent = `${cityName}`;
+    } else {
+        locationText.textContent = `${cityName}, ${country}`;
+    }
+
     weatherStatus.textContent = weatherName;
     weatherImg.src = `./images/${weatherImage}`;
     dateTime.textContent = dateFormat;
@@ -190,7 +196,13 @@ function showPlace(){
         // Create place button
         const placeBtn = document.createElement("button");
 
-        placeBtn.textContent = `${geoData.results[i].name}, ${geoData.results[i].admin2}, ${geoData.results[0].country}`;
+        if (geoData.results[i].admin2 == undefined)
+        {
+            placeBtn.textContent = `${geoData.results[i].name}, ${geoData.results[0].country}`;
+        } else {
+            placeBtn.textContent = `${geoData.results[i].name}, ${geoData.results[i].admin2}, ${geoData.results[0].country}`;
+        }
+        
 
         // Add style in button
         placeBtn.classList.add("placeBtn");
