@@ -48,7 +48,8 @@ const humidityText = document.getElementById("humidity-percent");
 const locPopup = document.getElementById("location-popup");
 const listContainer = document.getElementById("list-container");
 
-
+const changeLocation = document.getElementById("change-location");
+changeLocation.addEventListener("click", () => {locPopup.showModal();});
 
 // Data variables
 let city = cityInput.value.trim();
