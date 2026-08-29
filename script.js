@@ -103,13 +103,13 @@ async function fetchGeoData(){
 
 
 // Change data variables
-async function getInfo(){
-
+async function getInfo(index){
+    console.log(index)
     // Get variables from data
-    latitude = geoData.results[0].latitude;
-    longitude = geoData.results[0].longitude;
-    cityName = geoData.results[0].name;
-    country = geoData.results[0].country;
+    latitude = geoData.results[index].latitude;
+    longitude = geoData.results[index].longitude;
+    cityName = geoData.results[index].name;
+    country = geoData.results[index].country;
     console.log(geoData)
 
 
@@ -156,8 +156,6 @@ async function getInfo(){
 
 
 function updateDOM(){
-    // Close the popup
-    locPopup.close();
 
     // Update DOM
     locationText.textContent = `${cityName}, ${country}`;
@@ -176,6 +174,9 @@ function updateDOM(){
 
 // Append list of places with tha same name
 function showPlace(){
+    // Remove previous elements
+    listContainer.replaceChildren();
+
     const placeResults = geoData.results;
 
     // Add each place to list
@@ -196,9 +197,16 @@ function showPlace(){
 
         // Adds place button in the list
         placeList.appendChild(placeBtn);
+        placeList.id = `${i}`;
 
         // Add list in list container
         listContainer.appendChild(placeList);
+
+        placeBtn.addEventListener("click", async () => {
+            await getInfo(Number(placeList.id));
+            locPopup.close();
+            updateDOM();
+        });
     }
     
 }
@@ -207,8 +215,5 @@ function showPlace(){
 async function funcOrder(){
     await fetchGeoData();
     showPlace();
-
-    // TODO only run this if the user click one of the results and then change DOM
-    getInfo();
     
 }
