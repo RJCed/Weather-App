@@ -94,11 +94,14 @@ async function fetchGeoData(){
     city = cityInput.value.trim();
 
     // Request Location geo data from open-meteo
-    geoURL = `https://geocoding-api.open-meteo.com/v1/search?name=${city}`
-    geoResponse = await fetch(geoURL);
-    geoData = await geoResponse.json();
+    try {
+        geoURL = `https://geocoding-api.open-meteo.com/v1/search?name=${city}`
+        geoResponse = await fetch(geoURL);
+        geoData = await geoResponse.json();
+    } catch (error){
+        alert("API Timeout Due to High User Volume. Please Try Again.");
+    }
     console.log("Finished Geo Data")
-
 }
 
 
@@ -115,9 +118,13 @@ async function getInfo(index){
 
 
     // Request Weather Data from open-meteo
-    weatherURL = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&daily=precipitation_probability_max,weather_code,temperature_2m_max,temperature_2m_min&current=temperature_2m,relative_humidity_2m,wind_speed_10m&timezone=auto`
-    weatherResponse = await fetch(weatherURL);
-    weatherData = await weatherResponse.json();
+    try {
+        weatherURL = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&daily=precipitation_probability_max,weather_code,temperature_2m_max,temperature_2m_min&current=temperature_2m,relative_humidity_2m,wind_speed_10m&timezone=auto`
+        weatherResponse = await fetch(weatherURL);
+        weatherData = await weatherResponse.json();
+    } catch (error) {
+        alert("API Timeout Due to High User Volume. Please Try Again.");
+    }
     console.log("Finished Weather Data")
 
 
